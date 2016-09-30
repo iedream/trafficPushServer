@@ -28,10 +28,8 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
   var timeZoneCity = req.params.time["city"];
   var timeDaysInWeek = req.params.time["days"];
   var time = req.params.time["clock"];
-  //var timeString = '${time} * * ${timeDaysInWeek}';
-  //var timeZone = '${timeZoneContinent}/${timeZoneCity}';
-  var timeString = '*/5 * * * * *';
-  var timeZone = 'America/Toronto';
+  var timeString = '${time} * * ${timeDaysInWeek}';
+  var timeZone = '${timeZoneContinent}/${timeZoneCity}';
 
   var job = new CronJob({
     cronTime: timeString,
@@ -41,7 +39,7 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
       notification.sound = "ping.aiff";
       notification.alert = "did";
       notification.contentAvailable = 1;
-      notification.payload = 5;
+      notification.payload = userInfo;
       apnProvider.send(notification, deviceToken).then( result => {
           var i = 4;
       });
@@ -50,7 +48,7 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
     timeZone: timeZone
   });
 
-  //job.start();
+  job.start();
 });
 
 module.exports = router;
