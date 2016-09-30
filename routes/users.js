@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
+  console.log("GOT data");
   res.send('respond with a resource');
 
   var deviceToken = req.params.device;
@@ -41,7 +42,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
       notification.sound = "ping.aiff";
       notification.alert = "did";
       notification.contentAvailable = 1;
-      notification.payload = userInfo;
+      notification.payload = {'name':5};
       apnProvider.send(notification, deviceToken).then( result => {
         res.send(timeString + ' ' + timeZone);
       });
