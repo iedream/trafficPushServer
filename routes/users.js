@@ -19,11 +19,11 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next) {
+router.post('/sendNotification/:time/:device/', function(req, res, next) {
   res.send('respond with a resource');
 
   var deviceToken = req.params.device;
-  var userInfo = req.params.userInfo;
+  var userInfo = req.body.userInfo;
   var timeZoneContinent = req.params.time["continent"];
   var timeZoneCity = req.params.time["city"];
   var timeDaysInWeek = req.params.time["days"];
