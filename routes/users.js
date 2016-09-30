@@ -20,12 +20,12 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
-  console.log("GOT data" + req.body.userInfo);
+  console.log("GOT data" + req.body.data);
   res.send('respond with a resource');
 
   var deviceToken = req.params.device;
-  var userInfo = req.body["userInfo"];
-  var timeDict = req.body["time"];
+  var userInfo = req.body.data["userInfo"];
+  var timeDict = req.body.data["time"];
   console.log("GOt HERe");
   var timeZoneContinent = timeDict["continent"];
   var timeZoneCity = timeDict["city"];
