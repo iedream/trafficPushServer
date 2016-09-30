@@ -28,8 +28,10 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
   var timeZoneCity = req.params.time["city"];
   var timeDaysInWeek = req.params.time["days"];
   var time = req.params.time["clock"];
-  var timeString = '${time} * * ${timeDaysInWeek}';
-  var timeZone = '${timeZoneContinent}/${timeZoneCity}';
+  //var timeString = '${time} * * ${timeDaysInWeek}';
+  //var timeZone = '${timeZoneContinent}/${timeZoneCity}';
+  var timeString = '*/5 * * * * *';
+  var timeZone = 'America/Toronto';
 
   var job = new CronJob({
     cronTime: timeString,
