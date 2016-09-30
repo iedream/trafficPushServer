@@ -19,15 +19,16 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET users listing. */
-router.post('/sendNotification/:time/:device/', function(req, res, next) {
+router.post('/sendNotification/:device/', function(req, res, next) {
   res.send('respond with a resource');
 
   var deviceToken = req.params.device;
-  var userInfo = req.body.userInfo;
-  var timeZoneContinent = req.params.time["continent"];
-  var timeZoneCity = req.params.time["city"];
-  var timeDaysInWeek = req.params.time["days"];
-  var time = req.params.time["clock"];
+  var userInfo = req.body["userInfo"];
+  var timeDict = req.body["time"];
+  var timeZoneContinent = timeDict["continent"];
+  var timeZoneCity = timeDict["city"];
+  var timeDaysInWeek = timeDict["days"];
+  var time = timeDict["clock"];
   var timeString = '${time} * * ${timeDaysInWeek}';
   var timeZone = '${timeZoneContinent}/${timeZoneCity}';
 
@@ -41,7 +42,7 @@ router.post('/sendNotification/:time/:device/', function(req, res, next) {
       notification.contentAvailable = 1;
       notification.payload = userInfo;
       apnProvider.send(notification, deviceToken).then( result => {
-          var i = 4;
+        res.send(timeString + ' ' + timeZone);
       });
     },
     start: true,
