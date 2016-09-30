@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/sendNotification/:device/', function(req, res, next) {
+router.post('/sendNotification/:device/', function(req, res, next) {
   res.send("GOT data" + ' ' + JSON.stringify(req.body) + ' ' + req.body);
 
   var deviceToken = req.params.device;
