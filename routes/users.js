@@ -41,7 +41,7 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
       notification.sound = "ping.aiff";
       notification.alert = "did";
       notification.contentAvailable = 1;
-      notification.payload = {"name":5};
+      notification.payload = 5;
       apnProvider.send(notification, deviceToken).then( result => {
           var i = 4;
       });
