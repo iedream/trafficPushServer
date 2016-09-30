@@ -50,7 +50,7 @@ router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next)
     timeZone: timeZone
   });
 
-  job.start();
+  //job.start();
 });
 
 module.exports = router;
