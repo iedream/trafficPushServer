@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
-  console.log("GOT data");
+  console.log("GOT data" + req.body);
   res.send('respond with a resource');
 
   var deviceToken = req.params.device;
