@@ -31,6 +31,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var time = timeDict["clock"];
   var timeString = '${time} * * ${timeDaysInWeek}';
   var timeZone = '${timeZoneContinent}/${timeZoneCity}';
+  console.log('data: ' + timeString + ' ' + timeZone);
 
   var job = new CronJob({
     cronTime: timeString,
