@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var apn = require('apn');
-var apnProvider = new apn.Provider({
-    cert : __dirname + "/trafficPushCert.pem",
-    key : __dirname + "/trafficPush.pem"
-});
+//var apn = require('apn');
+//var apnProvider = new apn.Provider({
+//    cert : __dirname + "/trafficPushCert.pem",
+//    key : __dirname + "/trafficPush.pem",
+//    production: false
+//});
 
 var CronJob = require('cron').CronJob;
 
@@ -21,33 +22,33 @@ router.get('/', function(req, res, next) {
 router.get('/sendNotification/:time/:device/:userInfo', function(req, res, next) {
   res.send('respond with a resource');
 
-  var deviceToken = req.params.device;
-  var userInfo = req.params.userInfo;
-  var timeZoneContinent = req.params.time["continent"];
-  var timeZoneCity = req.params.time["city"];
-  var timeDaysInWeek = req.params.time["days"];
-  var time = req.params.time["clock"];
-  var timeString = '${time} * * ${timeDaysInWeek}';
-  var timeZone = '${timeZoneContinent}/${timeZoneCity}';
-
-  var job = new CronJob({
-    cronTime: timeString,
-    onTick: function() {
-      var notification = new apn.Notification();
-      notification.topic = "Catherine.traffic2";
-      notification.sound = "ping.aiff";
-      notification.alert = "did";
-      notification.contentAvailable = 1;
-      notification.payload = userInfo;
-      apnProvider.send(notification, deviceToken).then( result => {
-          var i = 4;
-      });
-    },
-    start: true,
-    timeZone: timeZone
-  });
-
-  job.start();
+  //var deviceToken = req.params.device;
+  //var userInfo = req.params.userInfo;
+  //var timeZoneContinent = req.params.time["continent"];
+  //var timeZoneCity = req.params.time["city"];
+  //var timeDaysInWeek = req.params.time["days"];
+  //var time = req.params.time["clock"];
+  //var timeString = '${time} * * ${timeDaysInWeek}';
+  //var timeZone = '${timeZoneContinent}/${timeZoneCity}';
+  //
+  //var job = new CronJob({
+  //  cronTime: timeString,
+  //  onTick: function() {
+  //    var notification = new apn.Notification();
+  //    notification.topic = "Catherine.traffic2";
+  //    notification.sound = "ping.aiff";
+  //    notification.alert = "did";
+  //    notification.contentAvailable = 1;
+  //    notification.payload = userInfo;
+  //    apnProvider.send(notification, deviceToken).then( result => {
+  //        var i = 4;
+  //    });
+  //  },
+  //  start: true,
+  //  timeZone: timeZone
+  //});
+  //
+  //job.start();
 });
 
 module.exports = router;
