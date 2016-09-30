@@ -20,38 +20,40 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
-  res.send("GOT data" + ' ' + JSON.stringify(req.body) + ' ' + req.body);
+  //res.send("GOT data" + ' ' + JSON.stringify(req.body) + ' ' + req.body);
 
   var deviceToken = req.params.device;
-  var userInfo = req.body.data["userInfo"];
-  var timeDict = req.body.data["time"];
-  console.log("GOt HERe");
-  var timeZoneContinent = timeDict["continent"];
-  var timeZoneCity = timeDict["city"];
-  var timeDaysInWeek = timeDict["days"];
-  var time = timeDict["clock"];
-  var timeString = '${time} * * ${timeDaysInWeek}';
-  var timeZone = '${timeZoneContinent}/${timeZoneCity}';
-  console.log('data: ' + timeString + ' ' + timeZone);
+  //var userInfo = req.body.userInfo;
+  var timeDict = req.body.time;
+  res.send("dict data " + timeDict);
+  console.log("dict data " + timeDict);
+  //console.log("GOt HERe");
+  //var timeZoneContinent = timeDict.continent;
+  //var timeZoneCity = timeDict.city;
+  //var timeDaysInWeek = timeDict.days;
+  //var time = timeDict.clock;
+  //var timeString = '${time} * * ${timeDaysInWeek}';
+  //var timeZone = '${timeZoneContinent}/${timeZoneCity}';
+  //console.log('data: ' + timeString + ' ' + timeZone);
 
-  var job = new CronJob({
-    cronTime: timeString,
-    onTick: function() {
-      var notification = new apn.Notification();
-      notification.topic = "Catherine.traffic2";
-      notification.sound = "ping.aiff";
-      notification.alert = "did";
-      notification.contentAvailable = 1;
-      notification.payload = {'name':5};
-      apnProvider.send(notification, deviceToken).then( result => {
-        res.send(timeString + ' ' + timeZone);
-      });
-    },
-    start: true,
-    timeZone: timeZone
-  });
-
-  job.start();
+  //var job = new CronJob({
+  //  cronTime: timeString,
+  //  onTick: function() {
+  //    var notification = new apn.Notification();
+  //    notification.topic = "Catherine.traffic2";
+  //    notification.sound = "ping.aiff";
+  //    notification.alert = "did";
+  //    notification.contentAvailable = 1;
+  //    notification.payload = {'name':5};
+  //    apnProvider.send(notification, deviceToken).then( result => {
+  //      res.send(timeString + ' ' + timeZone);
+  //    });
+  //  },
+  //  start: true,
+  //  timeZone: timeZone
+  //});
+  //
+  //job.start();
 });
 
 module.exports = router;
