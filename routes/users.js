@@ -35,25 +35,25 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeString = time + ' * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
   console.log('data: ' + timeString + ' ' + timeZone);
-  //res.end();
-  //var job = new CronJob({
-  //  cronTime: timeString,
-  //  onTick: function() {
-  //    var notification = new apn.Notification();
-  //    notification.topic = "Catherine.traffic2";
-  //    notification.sound = "ping.aiff";
-  //    notification.alert = "did";
-  //    notification.contentAvailable = 1;
-  //    notification.payload = {'name':5};
-  //    apnProvider.send(notification, deviceToken).then( result => {
-  //      res.send(timeString + ' ' + timeZone);
-  //    });
-  //  },
-  //  start: true,
-  //  timeZone: timeZone
-  //});
-  //
-  //job.start();
+  res.end();
+  var job = new CronJob({
+    cronTime: timeString,
+    onTick: function() {
+      var notification = new apn.Notification();
+      notification.topic = "Catherine.traffic2";
+      notification.sound = "ping.aiff";
+      notification.alert = "did";
+      notification.contentAvailable = 1;
+      notification.payload = {'name':5};
+      apnProvider.send(notification, deviceToken).then( result => {
+        res.send(timeString + ' ' + timeZone);
+      });
+    },
+    start: true,
+    timeZone: timeZone
+  });
+
+  job.start();
 });
 
 module.exports = router;
