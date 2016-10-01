@@ -20,22 +20,19 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
-  //res.send("GOT data" + ' ' + JSON.stringify(req.body) + ' ' + req.body);
-
   var deviceToken = req.params.device;
-  //var userInfo = req.body.userInfo;
+  var userInfo = req.body.userInfo;
   var timeDict = req.body.time;
+  console.log("dict data " + userInfo + " time data " + timeDict);
+  console.log("distance: " + userInfo.distance + " time: " + timeDict.city);
+  var timeZoneContinent = timeDict.continent;
+  var timeZoneCity = timeDict.city;
+  var timeDaysInWeek = timeDict.days;
+  var time = timeDict.clock;
+  var timeString = time + ' * * ' + timeDaysInWeek;
+  var timeZone = timeZoneContinent + '/' + timeZoneCity;
+  console.log('data: ' + timeString + ' ' + timeZone);
   res.send("dict data " + timeDict);
-  console.log("dict data " + timeDict);
-  //console.log("GOt HERe");
-  //var timeZoneContinent = timeDict.continent;
-  //var timeZoneCity = timeDict.city;
-  //var timeDaysInWeek = timeDict.days;
-  //var time = timeDict.clock;
-  //var timeString = '${time} * * ${timeDaysInWeek}';
-  //var timeZone = '${timeZoneContinent}/${timeZoneCity}';
-  //console.log('data: ' + timeString + ' ' + timeZone);
-
   //var job = new CronJob({
   //  cronTime: timeString,
   //  onTick: function() {
