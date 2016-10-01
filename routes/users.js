@@ -25,7 +25,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var deviceToken = req.params.device;
   var userInfo = req.body.userInfo;
   var timeDict = req.body.time;
-  res.send("dict data " + userInfo + " time data " + timeDict);
+  res.send("dict data " + userInfo + " time data " + timeDict + "body data " + req.body);
   console.log("dict data " + userInfo + " time data " + timeDict);
   console.log("distance: " + userInfo.distance + " time: " + timeDict.city);
   var timeZoneContinent = timeDict.continent;
