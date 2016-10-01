@@ -44,7 +44,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
       notification.sound = "ping.aiff";
       notification.alert = "did";
       notification.contentAvailable = 1;
-      notification.payload = {'name':5};
+      notification.payload = userInfo;
       apnProvider.send(notification, deviceToken).then( result => {
         res.send(timeString + ' ' + timeZone);
       });
