@@ -15,11 +15,13 @@ var CronJob = require('cron').CronJob;
     //"8A22947AEBE44234748012290E89DB4BB2C7EA9798B80E6ADCD86A0C99EFD055";
 
 router.get('/', function(req, res, next) {
+
   res.send('respond with a resource');
 });
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
+  console.log("Got into method");
   var deviceToken = req.params.device;
   var userInfo = req.body.userInfo;
   var timeDict = req.body.time;
