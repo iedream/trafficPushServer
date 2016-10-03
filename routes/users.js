@@ -48,10 +48,9 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeDaysInWeek = timeDict.days;
   var time = timeDict.clock;
 
-  var timeString = time + ' * * * * ' + timeDaysInWeek;
+  var timeString = time + ' * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
 
-  console.log("time: " + timeString);
   var job = new CronJob({
     cronTime: timeString,
     onTick: function() {
@@ -84,8 +83,7 @@ function convertToTimeString(timeString) {
   var timeArray = timeString.split(',');
   var clockArray = timeArray[0].split(' ');
 
-  var timeString = "every 30 second";
-      //clockArray[2] + ':' + clockArray[1];
+  var timeString = clockArray[2] + ':' + clockArray[1];
 
   var dayString;
   if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1 && timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
