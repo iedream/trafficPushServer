@@ -22,7 +22,9 @@ router.delete('/:time', function(req, res, next) {
 });
 
 router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
+  console.log("name: " + req.params.name + " time: " + req.params.time);
   var key = req.params.device + req.params.name + req.params.time;
+  console.log("Get key: " + key);
   var job = notificationDict[key];
   if (!job) {
     res.send(422, {"error":"Missing Job"});
@@ -69,6 +71,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var returnString =  "route: " + userInfo.name + " time: " + finalTimeString + " is successfully scheduled";
 
   var key = req.params.device + req.params.name + timeString;
+  console.log("Save key: " + key);
   notificationDict[key] = job;
   job.start();
 
