@@ -18,7 +18,7 @@ var notificationDict = {};
 
 router.delete('/:time', function(req, res, next) {
   var timeString = convertToTimeString(req.body.time);
-  res.send('respond with a resource: ' + timeString);
+  //res.send('respond with a resource: ' + timeString);
 });
 
 router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
@@ -72,29 +72,29 @@ function convertToTimeString(timeString) {
   var timeArray = timeString.split(',');
   var clockArray = timeArray[0].split(' ');
 
-  var timeString = clockArray[2] + ' ' + clockArray[1];
+  var timeString = clockArray[2] + ':' + clockArray[1];
 
   var dayString;
-  if (timeArray.contains('1') && timeArray.contains('2') && timeArray.contains('3') && timeArray.contains('4') && timeArray.contains('5') && timeArray.contains('6') && timeArray.contains('7')) {
+  if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1 && timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
     dayString = "Everyday";
-  } else if (timeArray.contains('1') && timeArray.contains('2') && timeArray.contains('3') && timeArray.contains('4') && timeArray.contains('5')) {
+  } else if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1) {
     dayString = "Weekdays";
-  } else if (timeArray.contains('6') && timeArray.contains('7')) {
+  } else if (timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
     dayString = "Weekend";
   } else {
-    if (timeArray.contains('1')) {
+    if (timeArray.indexOf('1') != -1) {
       dayString = "Monday, ";
-    } else if (timeArray.contains('2')) {
+    } else if (timeArray.indexOf('2') != -1) {
       dayString += "Tuesday, ";
-    } else if (timeArray.contains('3')) {
+    } else if (timeArray.indexOf('3') != -1) {
       dayString += "Wednesday, ";
-    } else if (timeArray.contains('4')) {
+    } else if (timeArray.indexOf('4') != -1) {
       dayString += "Thursday, ";
-    } else if (timeArray.contains('5')) {
+    } else if (timeArray.indexOf('5') != -1) {
       dayString += "Friday, ";
-    } else if (timeArray.contains('6')) {
+    } else if (timeArray.indexOf('6') != -1) {
       dayString += "Saturday, ";
-    } else if (timeArray.contains('7')) {
+    } else if (timeArray.indexOf('7') != -1) {
       dayString += "Sunday, ";
     }
     dayString = dayString.slice(0, -2);
