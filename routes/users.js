@@ -32,7 +32,7 @@ router.delete('/cancelNotification/:device/:name/:time', function(req, res, next
     job.stop();
     delete notificationDict[key];
     var finalTimeString = convertToTimeString(req.params.time);
-    var returnString =  "route: " + req.params.name + " time: " + finalTimeString + " is successfully scheduled";
+    var returnString =  "route: " + req.params.name + " time: " + finalTimeString + " is successfully canceled";
     res.status(200).send({"message":returnString});
   }
 });
