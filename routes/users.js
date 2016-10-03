@@ -16,13 +16,11 @@ var notificationDict = {};
 //var userInfo = {};
     //"8A22947AEBE44234748012290E89DB4BB2C7EA9798B80E6ADCD86A0C99EFD055";
 
-router.delete('/:time', function(req, res, next) {
-  var timeString = convertToTimeString(req.body.time);
-  //res.send('respond with a resource: ' + timeString);
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource: ' + timeString);
 });
 
 router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
-  console.log("name: " + req.params.name + " time: " + req.params.time);
   var key = req.params.device + req.params.name + req.params.time;
   console.log("Get key: " + key);
   var job = notificationDict[key];
