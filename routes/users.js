@@ -83,7 +83,8 @@ function convertToTimeString(timeString) {
   var timeArray = timeString.split(',');
   var clockArray = timeArray[0].split(' ');
 
-  var timeString = clockArray[2] + ':' + clockArray[1];
+  var timeString = "every 5 second";
+      //clockArray[2] + ':' + clockArray[1];
 
   var dayString;
   if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1 && timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
