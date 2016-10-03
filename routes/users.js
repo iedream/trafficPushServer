@@ -48,7 +48,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeDaysInWeek = timeDict.days;
   var time = timeDict.clock;
 
-  var timeString = time + ' * * ' + timeDaysInWeek;
+  var timeString = time + ' * * * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
 
   console.log("time: " + timeString);
