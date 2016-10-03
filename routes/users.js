@@ -84,7 +84,7 @@ function convertToTimeString(timeString) {
   var timeArray = timeString.split(',');
   var clockArray = timeArray[0].split(' ');
 
-  var timeString = "every 5 second";
+  var timeString = "every 30 second";
       //clockArray[2] + ':' + clockArray[1];
 
   var dayString;
