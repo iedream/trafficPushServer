@@ -24,12 +24,14 @@ router.delete('/:time', function(req, res, next) {
 router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
   var key = req.params.device + req.params.name + req.params.time;
   var job = notificationDict[key];
-  if (job) {
-    var finalTimeString = convertToTimeString(req.params.time);
-    res.send("route " + req.params.name + " time " + finalTimeString + " is deleted");
+  if (!job) {
+    res.send(422, {"error":"Missing Job"});
   }
   job.stop();
   delete notificationDict[key];
+  var finalTimeString = convertToTimeString(req.params.time);
+  var returnString =  "route: " + req.params.name + " time: " + finalTimeString + " is successfully scheduled";
+  res.send(200, {"message":returnString});
 });
 
 /* GET users listing. */
@@ -69,7 +71,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var key = req.params.device + req.params.name + timeString;
   notificationDict[key] = job;
   job.start();
-  
+
   res.send(200, {'message': returnString});
 });
 
