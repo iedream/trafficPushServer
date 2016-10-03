@@ -61,11 +61,15 @@ router.post('/sendNotification/:device/', function(req, res, next) {
     start: true,
     timeZone: timeZone
   });
-  job.start();
 
   var timeString = time + ',' + timeDaysInWeek;
   var finalTimeString = convertToTimeString(timeString);
   var returnString =  "route: " + userInfo.name + " time: " + finalTimeString + " is successfully scheduled";
+
+  var key = req.params.device + req.params.name + timeString;
+  notificationDict[key] = job;
+  job.start();
+  
   res.send(200, {'message': returnString});
 });
 
