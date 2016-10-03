@@ -66,7 +66,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeString = time + ',' + timeDaysInWeek;
   var finalTimeString = convertToTimeString(timeString);
   var returnString =  "route: " + userInfo.name + " time: " + finalTimeString + " is successfully scheduled";
-  res.send(200, {'error':'missing data'});
+  res.send(200, {'message': returnString});
 });
 
 function convertToTimeString(timeString) {
