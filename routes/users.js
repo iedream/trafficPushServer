@@ -27,13 +27,13 @@ router.delete('/cancelNotification/:device/:name/:time', function(req, res, next
   console.log("Get key: " + key);
   var job = notificationDict[key];
   if (!job) {
-    res.send(422, {"error":"Missing Job"});
+    res.status(422).send({"error":"Missing Job"});
   }
   job.stop();
   delete notificationDict[key];
   var finalTimeString = convertToTimeString(req.params.time);
   var returnString =  "route: " + req.params.name + " time: " + finalTimeString + " is successfully scheduled";
-  res.send(200, {"message":returnString});
+  res.status(200).send({"message":returnString});
 });
 
 /* GET users listing. */
@@ -75,7 +75,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   notificationDict[key] = job;
   job.start();
 
-  res.send(200, {'message': returnString});
+  res.status(200).send({"message":returnString});
 });
 
 function convertToTimeString(timeString) {
