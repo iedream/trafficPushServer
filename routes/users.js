@@ -71,7 +71,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var finalTimeString = convertToTimeString(timeString);
   var returnString =  "route: " + userInfo.name + " time: " + finalTimeString + " is successfully scheduled";
 
-  var key = req.params.device + req.params.name + timeString;
+  var key = req.params.device + userInfo.name + timeString;
   console.log("Save key: " + key);
   notificationDict[key] = job;
   job.start();
