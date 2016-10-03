@@ -10,50 +10,99 @@ var apnProvider = new apn.Provider({
 
 var CronJob = require('cron').CronJob;
 
+var notificationDict = {};
+
 //var deviceToken;
 //var userInfo = {};
     //"8A22947AEBE44234748012290E89DB4BB2C7EA9798B80E6ADCD86A0C99EFD055";
 
-router.get('/', function(req, res, next) {
+router.delete('/:time', function(req, res, next) {
+  var timeString = convertToTimeString(req.body.time);
+  res.send('respond with a resource: ' + timeString);
+});
 
-  res.send('respond with a resource');
+router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
+  var key = req.params.device + req.params.name + req.params.time;
+  var job = notificationDict[key];
+  if (job) {
+    var finalTimeString = convertToTimeString(req.params.time);
+    res.send("route " + req.params.name + " time " + finalTimeString + " is deleted");
+  }
+  job.stop();
+  delete notificationDict[key];
 });
 
 /* GET users listing. */
 router.post('/sendNotification/:device/', function(req, res, next) {
-  console.log("Got into method");
   var deviceToken = req.params.device;
   var userInfo = req.body.userInfo;
   var timeDict = req.body.time;
-  res.send("dict data " + userInfo + " time data " + timeDict + "body data " + req.body);
-  console.log("dict data " + userInfo + " time data " + timeDict);
-  console.log("distance: " + userInfo.distance + " time: " + timeDict.city);
+
   var timeZoneContinent = timeDict.continent;
   var timeZoneCity = timeDict.city;
   var timeDaysInWeek = timeDict.days;
   var time = timeDict.clock;
+
   var timeString = time + ' * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
-  console.log('data: ' + timeString + ' ' + timeZone);
-  res.end();
+
   var job = new CronJob({
     cronTime: timeString,
     onTick: function() {
       var notification = new apn.Notification();
       notification.topic = "Catherine.traffic2";
       notification.sound = "ping.aiff";
-      notification.alert = "did";
+      notification.alert = "got alert";
       notification.contentAvailable = 1;
       notification.payload = userInfo;
       apnProvider.send(notification, deviceToken).then( result => {
-        res.send(timeString + ' ' + timeZone);
       });
     },
     start: true,
     timeZone: timeZone
   });
-
   job.start();
+
+  var timeString = time + ',' + timeDaysInWeek;
+  var finalTimeString = convertToTimeString(timeString);
+  res.send("route: " + userInfo.name + " time: " + finalTimeString + " is successfully scheduled");
 });
+
+function convertToTimeString(timeString) {
+  var timeArray = timeString.split(',');
+  var clockArray = timeArray[0].split(' ');
+
+  var timeString = clockArray[2] + ' ' + clockArray[1];
+
+  var dayString;
+  if (timeArray.contains('1') && timeArray.contains('2') && timeArray.contains('3') && timeArray.contains('4') && timeArray.contains('5') && timeArray.contains('6') && timeArray.contains('7')) {
+    dayString = "Everyday";
+  } else if (timeArray.contains('1') && timeArray.contains('2') && timeArray.contains('3') && timeArray.contains('4') && timeArray.contains('5')) {
+    dayString = "Weekdays";
+  } else if (timeArray.contains('6') && timeArray.contains('7')) {
+    dayString = "Weekend";
+  } else {
+    if (timeArray.contains('1')) {
+      dayString = "Monday, ";
+    } else if (timeArray.contains('2')) {
+      dayString += "Tuesday, ";
+    } else if (timeArray.contains('3')) {
+      dayString += "Wednesday, ";
+    } else if (timeArray.contains('4')) {
+      dayString += "Thursday, ";
+    } else if (timeArray.contains('5')) {
+      dayString += "Friday, ";
+    } else if (timeArray.contains('6')) {
+      dayString += "Saturday, ";
+    } else if (timeArray.contains('7')) {
+      dayString += "Sunday, ";
+    }
+    dayString = dayString.slice(0, -2);
+  }
+
+  var finalTime = timeString + ',' + dayString;
+
+  return finalTime;
+}
 
 module.exports = router;
