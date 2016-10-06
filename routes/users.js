@@ -83,7 +83,7 @@ function convertToTimeString(timeString) {
 
   var timeString = clockArray[2] + ':' + clockArray[1];
 
-  var dayString;
+  var dayString = @"";
   if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1 && timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
     dayString = "Everyday";
   } else if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1) {
@@ -93,17 +93,23 @@ function convertToTimeString(timeString) {
   } else {
     if (timeArray.indexOf('1') != -1) {
       dayString = "Monday, ";
-    } else if (timeArray.indexOf('2') != -1) {
+    }
+    if (timeArray.indexOf('2') != -1) {
       dayString += "Tuesday, ";
-    } else if (timeArray.indexOf('3') != -1) {
+    }
+    if (timeArray.indexOf('3') != -1) {
       dayString += "Wednesday, ";
-    } else if (timeArray.indexOf('4') != -1) {
+    }
+    if (timeArray.indexOf('4') != -1) {
       dayString += "Thursday, ";
-    } else if (timeArray.indexOf('5') != -1) {
+    }
+    if (timeArray.indexOf('5') != -1) {
       dayString += "Friday, ";
-    } else if (timeArray.indexOf('6') != -1) {
+    }
+    if (timeArray.indexOf('6') != -1) {
       dayString += "Saturday, ";
-    } else if (timeArray.indexOf('7') != -1) {
+    }
+    if (timeArray.indexOf('7') != -1) {
       dayString += "Sunday, ";
     }
     dayString = dayString.slice(0, -2);
