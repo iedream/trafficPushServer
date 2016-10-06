@@ -83,7 +83,7 @@ function convertToTimeString(timeString) {
 
   var timeString = clockArray[2] + ':' + clockArray[1];
 
-  var dayString = @"";
+  var dayString = "";
   if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1 && timeArray.indexOf('6') != -1 && timeArray.indexOf('7') != -1) {
     dayString = "Everyday";
   } else if (timeArray.indexOf('1') != -1 && timeArray.indexOf('2') != -1 && timeArray.indexOf('3') != -1 && timeArray.indexOf('4') != -1 && timeArray.indexOf('5') != -1) {
