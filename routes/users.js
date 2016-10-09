@@ -12,10 +12,6 @@ var CronJob = require('cron').CronJob;
 
 var notificationDict = {};
 
-//var deviceToken;
-//var userInfo = {};
-    //"8A22947AEBE44234748012290E89DB4BB2C7EA9798B80E6ADCD86A0C99EFD055";
-
 router.get('/', function(req, res, next) {
   res.send('respond with a resource: ' + timeString);
 });
