@@ -13,7 +13,7 @@ var CronJob = require('cron').CronJob;
 var notificationDict = {};
 
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource: ' + timeString);
+  res.send('respond with a resource');
 });
 
 router.delete('/cancelNotification/:device/:name/:time', function(req, res, next) {
