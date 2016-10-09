@@ -45,27 +45,23 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeString = time + ' * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
 
-  var job = new CronJob('00 54 17 * * 0', function() {
-    console.log('You will see this message every second');
-  }, null, true, timeZone);
-
-  //var job = new CronJob({
-  //  cronTime: timeString,
-  //  onTick: function() {
-  //    console.log("Successfully posted alert");
-  //    var notification = new apn.Notification();
-  //    notification.topic = "Catherine.traffic2";
-  //    notification.sound = "ping.aiff";
-  //    notification.alert = "got alert";
-  //    notification.contentAvailable = 1;
-  //    notification.payload = userInfo;
-  //    apnProvider.send(notification, deviceToken).then( result => {
-  //    });
-  //  },
-  //  start: true,
-  //  timeZone: timeZone
-  //});
-  //job.start();
+  var job = new CronJob({
+    cronTime: timeString,
+    onTick: function() {
+      console.log("Successfully posted alert");
+      var notification = new apn.Notification();
+      notification.topic = "Catherine.traffic2";
+      notification.sound = "ping.aiff";
+      notification.alert = "got alert";
+      notification.contentAvailable = 1;
+      notification.payload = userInfo;
+      apnProvider.send(notification, deviceToken).then( result => {
+      });
+    },
+    start: true,
+    timeZone: timeZone
+  });
+  job.start();
 
   var timeString = time + ',' + timeDaysInWeek;
   var finalTimeString = convertToTimeString(timeString);
