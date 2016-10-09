@@ -48,6 +48,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var job = new CronJob({
     cronTime: timeString,
     onTick: function() {
+      console.log("Successfully posted alert");
       var notification = new apn.Notification();
       notification.topic = "Catherine.traffic2";
       notification.sound = "ping.aiff";
