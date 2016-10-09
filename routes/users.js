@@ -61,6 +61,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
     start: true,
     timeZone: timeZone
   });
+  job.start();
 
   var timeString = time + ',' + timeDaysInWeek;
   var finalTimeString = convertToTimeString(timeString);
@@ -69,7 +70,6 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var key = req.params.device + userInfo.routeName + timeString;
   console.log("Save key: " + key);
   notificationDict[key] = job;
-  job.start();
 
   res.status(200).send({"message":returnString});
 });
