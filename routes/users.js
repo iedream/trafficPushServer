@@ -45,7 +45,7 @@ router.post('/sendNotification/:device/', function(req, res, next) {
   var timeString = time + ' * * ' + timeDaysInWeek;
   var timeZone = timeZoneContinent + '/' + timeZoneCity;
 
-  var job = new CronJob(timeString, function() {
+  var job = new CronJob('* * * * * *', function() {
     console.log('You will see this message every second');
   }, null, true, timeZone);
 
