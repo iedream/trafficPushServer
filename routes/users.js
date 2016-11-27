@@ -51,8 +51,6 @@ router.post('/sendNotification/:device/', function(req, res, next) {
       console.log("Successfully posted alert");
       var notification = new apn.Notification();
       notification.topic = "Catherine.traffic2";
-      notification.sound = "ping.aiff";
-      notification.alert = "got alert";
       notification.contentAvailable = 1;
       notification.payload = userInfo;
       apnProvider.send(notification, deviceToken).then( result => {
